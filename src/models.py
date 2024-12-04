@@ -114,57 +114,15 @@ class User_Favorites(db.Model):
     vehicle_id = db.Column(db.Integer, db.ForeignKey('vehicles.id'), nullable=True)
     vehicle = db.relationship(Vehicles)
 
-    def __repr__(self):
-            return '<User_Favorites %r>' % self.character
+    # def __repr__(self):
+    #         return '<User_Favorites %r>' % self.character
         
     def serialize(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
             "character_id": self.character_id,
-            # "character_name": self.character_name,
             "planet_id": self.planet_id,
-            # "planet_name": self.planet_name,
             "vehicle_id": self.vehicle_id,
-            # "vehicle_name": self.vehicle_name
         }
     
-
-# # class Favorite_Characters(db.Model):
-# #     # __tablename__ = 'favorite_characters'
-# #     id = db.Column(db.Integer, primary_key=True)
-
-# #     fave_name = db.Column(db.String(250), db.ForeignKey('characters.name'))
-# #     fave_id = db.Column(db.Integer, db.ForeignKey('characters.character_id'))
-    
-# #     def serialize(self):
-# #         return {
-# #             "fave_name": self.fave_name,
-# #             "fave_id": self.fave_id
-# #         }
-
-# # class Favorite_Planets(db.Model):
-# #     # __tablename__ = 'favorite_planets'
-# #     id = db.Column(db.Integer, primary_key=True)
-
-# #     fave_name = db.Column(db.String(250),  db.ForeignKey('planets.name'))
-# #     fave_id = db.Column(db.Integer, db.ForeignKey('planets.planet_id'))
-    
-# #     def serialize(self):
-# #         return {
-# #             "fave_name": self.fave_name,
-# #             "fave_id": self.fave_id
-# #         }
-
-# # class Favorite_Vehicles(db.Model):
-# #     # __tablename__ = 'favorite_vehicles'
-# #     id = db.Column(db.Integer, primary_key=True)
-
-# #     fave_name = db.Column(db.String(250), db.ForeignKey('vehicles.name'))
-# #     fave_id = db.Column(db.Integer, db.ForeignKey('vehicles.vehicle_id'))
-    
-# #     def serialize(self):
-# #         return {
-# #             "fave_name": self.fave_name,
-# #             "fave_id": self.fave_id
-# #         }
