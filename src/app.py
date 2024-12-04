@@ -134,10 +134,12 @@ def get_all_users():
                         # GET a user's favorites
 @app.route("/favorites/<int:user_id>", methods=["GET"])
 def get_user_favorites(user_id):
-    user = Users.query.get(user_id)
+    # user = Users.query.get(user_id)
 
-    user_favorites = User_Favorites.query.get(user_id)
+    # user_favorites = User_Favorites.query.get(user_id)
     
+    user_favorites = User_Favorites.query.filter_by(user_id = user_id).all()
+
     if user_favorites is None:
         raise APIException(f'User ID {user_id} has no favorites yet!', status_code = 404)
     else:
@@ -186,14 +188,15 @@ def add_favorite_vehicle():
 
 
 # # delete favorite Character
-@app.route("/favorites/character/<int:character_id>", methods=["DELETE"])
-def delete_fav_character(character_id):
+@app.route("/favorites/<int:user_id>/<int:character_id>", methods=["DELETE"])
+def delete_fav_character(user_id, character_id):
     
-    # Get single record based on its primary key
-    fav_character = Characters.query.get(character_id)
+    
+    fave_to_delete = User_Favorites.query.filter_by(user_id = user_id).filter_by(character_id).first()
+    if fave_to_delete:
+        db.session.delete(fave_to_delete)
+        db.session.commit()
 
-    if fav_character is None:
-        raise APIException(f'Character ID {character_id} is not found!', status_code = 404)
     
     return jsonify("Character successfully deleted from your favorites"), 200
 
